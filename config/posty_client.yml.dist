@@ -1,11 +1,9 @@
 development:
   # this is the posty Url put here your url where the posty-api is stored
-  :api_url: http://posty-api.herokuapp.com/api/
+  api_url: http://posty-api.herokuapp.com/api/
   # this is the version from the posty api
-  :api_version: v1
+  api_version: v1
 
 production:
-  # this is the posty Url put here your url where the posty-api is stored
-  :api_url: http://posty-api.herokuapp.com/api/
-  # this is the version from the posty api
-  :api_version: v1
+  api_url: http://posty-api.herokuapp.com/api/
+  api_version: v1

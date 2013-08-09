@@ -8,15 +8,27 @@ require "posty_client/version"
 
 module PostyClient
   def self.settings_file
-    @settings_file ||= File.expand_path('~/.posty_client.yml')
+    default_file = File.expand_path('~/.posty_client.yml')
+
+    @settings_file ||= if File.exists?(default_file)
+      default_file
+    else
+      # this is set to make the cli not bark on missing settings
+      PostyClient.root + '/config/posty_client.yml.dist'
+    end
   end
 
   def self.settings_file=(file_path)
     @settings_file = file_path
+    Settings.source(@settings_file)
   end
 
   def self.env
     'development' || ENV['POSTY_ENV']
+  end
+
+  def self.root
+    File.expand_path(File.dirname(__FILE__)+'/../')
   end
 
   mattr_accessor :logger

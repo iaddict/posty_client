@@ -15,6 +15,19 @@ module PostyClient
       puts "version %s" % [PostyClient::VERSION]
     end
 
+    desc "create_config", "create a configuration file at ~/.posty-client.yml"
+    def create_config
+      require 'fileutils'
+
+      user_config_file = File.expand_path('~/.posty_client.yml')
+      if File.exists?(user_config_file)
+        say("File #{user_config_file} already exists! Nothing created.", :red)
+        exit 1
+      end
+
+      FileUtils.cp(PostyClient.root + '/config/posty_client.yml.dist', user_config_file)
+      say("File #{user_config_file} created. Please customize.", :green)
+    end
 
     desc "domain [SUBCOMMAND]", "perform an action on a domain"
     long_desc <<-D 
