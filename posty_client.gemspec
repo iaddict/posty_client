@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = PostyClient::VERSION
   spec.authors       = ["Thomas Steinhausen"]
   spec.email         = ["ts@image-addicts.de"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{A library and a command line tool to use the post api.}
+  spec.summary       = %q{Library and cli for the post api.}
+  spec.homepage      = "https://github.com/iaddict/posty_client"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
