@@ -3,9 +3,23 @@ posty_client
 
 Client library for the post_api server: https://github.com/posty/posty_api
 
+Install
+-------
+
+gem install posty_client
 
 Usage
 -----
+
+Create at least a configuration file at ~/.posty-cli.yml
+
+Cli:
+
+```
+$ posty-client help
+```
+
+Library:
 
 ```
 require 'pp'
