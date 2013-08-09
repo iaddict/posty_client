@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/posty_client'
+require 'posty_client/cli'
+
+PostyClient::CLI.start
