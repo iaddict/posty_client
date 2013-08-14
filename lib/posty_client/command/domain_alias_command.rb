@@ -6,14 +6,14 @@ module PostyClient
       include PostyClient::Resources
       include PostyClient::Command::FinderConcerns
 
-      desc "list [DOMAIN]", "list all domain_aliases of given domain"
+      desc "list [DOMAIN]", "list all domain aliases of given domain"
       def list(domain)
         domain = find_domain_by_name(domain)
         domain_aliases = domain.aliases
         puts domain_aliases.map(&:name)
       end
 
-      desc "add [DOMAIN] [DOMAIN_ALIAS]", "add an domain_alias"
+      desc "add [DOMAIN] [DOMAIN_ALIAS]", "add a domain alias"
       def add(domain_name, alias_name)
         domain = find_domain_by_name(domain_name)
 
@@ -25,7 +25,7 @@ module PostyClient
         end
       end
 
-      desc "delete [DOMAIN] [DOMAIN_ALIAS]", "delete the specified domain_alias"
+      desc "delete [DOMAIN] [DOMAIN_ALIAS]", "delete the specified domain alias"
       def delete(domain_name, name)
         ali = find_domain_alias_by_domain_and_name(domain_name, name)
         if ali.new_resource?
