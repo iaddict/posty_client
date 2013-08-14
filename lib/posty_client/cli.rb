@@ -1,7 +1,8 @@
 require 'thor'
 require 'posty_client/command/domain_command'
 require 'posty_client/command/user_command'
-require 'posty_client/command/alias_command'
+require 'posty_client/command/domain_alias_command'
+require 'posty_client/command/user_alias_command'
 
 
 module PostyClient
@@ -41,11 +42,17 @@ module PostyClient
     D
     subcommand "user", PostyClient::Command::UserCommand
 
-    desc "alias [SUBCOMMAND]", "perform an action on a alias"
+    desc "domain_alias [SUBCOMMAND]", "perform an action on a domain_alias"
     long_desc <<-D 
-    Perform an action on a alias. To see available subcommands use 'posty alias help' 
+    Perform an action on a domain_alias. To see available subcommands use 'posty domain_alias help' 
     D
-    subcommand "alias", PostyClient::Command::AliasCommand
+    subcommand "domain_alias", PostyClient::Command::DomainAliasCommand
+
+    desc "user_alias [SUBCOMMAND]", "perform an action on a user_alias"
+    long_desc <<-D 
+    Perform an action on a user_alias. To see available subcommands use 'posty user_alias help' 
+    D
+    subcommand "user_alias", PostyClient::Command::UserAliasCommand
   end
 end
 

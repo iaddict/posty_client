@@ -22,6 +22,28 @@ module PostyClient
           model
         end
       end
+      
+      def find_all_by_user(user)
+        response = RestClient.get([user.slug, resource_name].join('/'))
+
+        if response.code == 404
+          logger.debug("#{self.class.name} :: load non existing object (#{response.code}) '#{response}'")
+          return []
+        elsif response.code != 200
+          logger.error("#{self.class.name} :: load failed with (#{response.code}) '#{response}'")
+          return nil
+        end
+
+        data = JSON.parse(response)
+
+        data.collect do |datum|
+          model = self.new(user)
+          model.attributes = datum.flatten.last
+          model.new_resource = false
+
+          model
+        end        
+      end
     end
   end
 end

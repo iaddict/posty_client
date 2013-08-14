@@ -30,12 +30,17 @@ module PostyClient
 
         User.new(domain, user_name)
       end
-
-      def find_alias_by_email(name)
-        user_name, domain_name = user_and_domain_from_email(name)
+      
+      def find_user_alias_by_email_and_name(email, name)
+        user = find_user_by_email(email)
+        
+        UserAlias.new(user, name)
+      end
+      
+      def find_domain_alias_by_domain_and_name(domain_name, name)
         domain = find_domain_by_name(domain_name)
-
-        Alias.new(domain, user_name)
+        
+        DomainAlias.new(domain, name)
       end
     end
   end

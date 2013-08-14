@@ -28,9 +28,9 @@ module PostyClient
       end
 
       def aliases
-        Alias.find_all_by_domain(self)
+        DomainAlias.find_all_by_domain(self)
       end
-
+      
       def slug
         [resource_slug, name].join('/')
       end
