@@ -55,13 +55,13 @@ unless u.save
   exit
 end
 
-u = PostyClient::Resources::Alias.new(d, 'tommy')
-u.attributes['destination'] = 'bheller'
-unless u.save
-  pp u.errors
+a = PostyClient::Resources::UserAlias.new(u, 'tommy')
+a.attributes['destination'] = 'bheller'
+unless a.save
+  pp a.errors
   exit
 end
 
 puts '--'*10
-pp d.aliases
+pp u.aliases
 ```
