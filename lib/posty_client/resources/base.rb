@@ -122,7 +122,7 @@ module PostyClient
       end
 
       def self.resource_name
-        self.name.demodulize.tableize        
+        self.name.demodulize.tableize
       end
 
       def resource_name

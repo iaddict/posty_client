@@ -2,19 +2,15 @@ require_relative 'finder_concern'
 
 module PostyClient
   module Resources
-    class User < Base
+    class UserAlias < Base
       extend FinderConcern
 
-      attr_reader :domain
+      attr_reader :user
 
-      def initialize(domain, name=nil)
+      def initialize(user, name=nil)
+        @user = user
         @name = name
-        @domain = domain
         load if name
-      end
-      
-      def aliases
-        UserAlias.find_all_by_user(self)
       end
 
       def slug
@@ -22,7 +18,11 @@ module PostyClient
       end
 
       def resource_slug
-        [domain.slug, 'users'].join('/')
+        [user.slug, 'aliases'].join('/')
+      end
+      
+      def self.resource_name
+        :aliases
       end
     end
   end
