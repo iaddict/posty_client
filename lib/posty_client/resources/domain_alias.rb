@@ -1,20 +1,16 @@
+require_relative 'finder_concern'
+
 module PostyClient
   module Resources
-    class Alias < Base
+    class DomainAlias < Base
       extend FinderConcern
 
       attr_reader :domain
 
-      self.primary_key = 'source'
-
       def initialize(domain, name=nil)
         @domain = domain
         @name = name
-        if @name
-          unless load
-            attributes[primary_key] = @name
-          end
-        end
+        load if name
       end
 
       def slug
@@ -23,6 +19,10 @@ module PostyClient
 
       def resource_slug
         [domain.slug, 'aliases'].join('/')
+      end
+      
+      def self.resource_name
+        :aliases
       end
     end
   end
