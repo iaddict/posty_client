@@ -10,7 +10,7 @@ module PostyClient
       def list(domain)
         domain = Domain.new(domain)
         users = domain.users
-        print_list(users.map(&:name))
+        puts users.map(&:name)
       end
 
       desc "add [USER]@[DOMAIN]", "add a user"
