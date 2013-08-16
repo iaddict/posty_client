@@ -3,6 +3,7 @@ require 'posty_client/command/domain_command'
 require 'posty_client/command/user_command'
 require 'posty_client/command/domain_alias_command'
 require 'posty_client/command/user_alias_command'
+require 'posty_client/command/transport_command'
 
 
 module PostyClient
@@ -53,6 +54,12 @@ module PostyClient
     Perform an action on a user_alias. To see available subcommands use 'posty user_alias help' 
     D
     subcommand "user_alias", PostyClient::Command::UserAliasCommand
+
+    desc "transport [SUBCOMMAND]", "perform an action on a transport"
+    long_desc <<-D 
+    Perform an action on a transport. To see available subcommands use 'posty transport help' 
+    D
+    subcommand "transport", PostyClient::Command::TransportCommand
   end
 end
 
