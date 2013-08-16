@@ -37,7 +37,7 @@ module PostyClient
 end
 
 RestClient.add_before_execution_proc do |req, params|
-  req['access_token'] = PostyClient::Settings.access_token
+  req['auth_token'] = PostyClient::Settings.access_token
 end
 
 
