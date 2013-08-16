@@ -3,7 +3,9 @@ development:
   api_url: http://posty-api.herokuapp.com/api/
   # this is the version from the posty api
   api_version: v1
+  access_token: ask your admin
 
 production:
   api_url: http://posty-api.herokuapp.com/api/
   api_version: v1
+  access_token: ask your admin

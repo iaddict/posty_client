@@ -1,5 +1,4 @@
 require 'uri'
-require 'rest_client'
 
 module PostyClient
   module Resources

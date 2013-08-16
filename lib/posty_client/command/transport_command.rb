@@ -21,7 +21,6 @@ module PostyClient
       desc "rename [DOMAIN] [NEW_DOMAIN]", "rename specified transport"
       def rename(name, new_name)
         transport = PostyClient::Resources::Transport.new(name)
-        puts transport.inspect
         transport.attributes['name'] = new_name
         
         unless transport.save

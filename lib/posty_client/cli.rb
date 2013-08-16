@@ -4,6 +4,7 @@ require 'posty_client/command/user_command'
 require 'posty_client/command/domain_alias_command'
 require 'posty_client/command/user_alias_command'
 require 'posty_client/command/transport_command'
+require 'posty_client/command/api_key_command'
 
 
 module PostyClient
@@ -60,6 +61,12 @@ module PostyClient
     Perform an action on a transport. To see available subcommands use 'posty transport help' 
     D
     subcommand "transport", PostyClient::Command::TransportCommand
+
+    desc "api_key [SUBCOMMAND]", "perform an action on a transport"
+    long_desc <<-D 
+    Perform an action on a transport. To see available subcommands use 'posty transport help' 
+    D
+    subcommand "api_key", PostyClient::Command::ApiKeyCommand
   end
 end
 
