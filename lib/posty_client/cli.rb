@@ -31,6 +31,11 @@ module PostyClient
       FileUtils.cp(PostyClient.root + '/config/posty_client.yml.dist', user_config_file)
       say("File #{user_config_file} created. Please customize.", :green)
     end
+    
+    desc "summary", "Returns a summary of all Resources"
+    def summary
+      print_table(PostyClient::Resources::Summary.get)
+    end
 
     desc "domain [SUBCOMMAND]", "perform an action on a domain"
     long_desc <<-D 
@@ -62,9 +67,9 @@ module PostyClient
     D
     subcommand "transport", PostyClient::Command::TransportCommand
 
-    desc "api_key [SUBCOMMAND]", "perform an action on a transport"
+    desc "api_key [SUBCOMMAND]", "perform an action on a api_key"
     long_desc <<-D 
-    Perform an action on a transport. To see available subcommands use 'posty transport help' 
+    Perform an action on a api_key. To see available subcommands use 'posty api_key help' 
     D
     subcommand "api_key", PostyClient::Command::ApiKeyCommand
   end
