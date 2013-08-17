@@ -26,12 +26,6 @@ module PostyClient
         @name = name
         load if name
       end
-      
-      def expire
-        request_with_error_handling do
-          RestClient.put(slug + "/expire", attributes)
-        end
-      end
 
       def slug
         [resource_slug, name].join('/')
