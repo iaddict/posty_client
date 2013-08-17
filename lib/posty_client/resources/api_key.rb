@@ -26,6 +26,14 @@ module PostyClient
         @name = name
         load if name
       end
+      
+      def expired?
+        attributes['expires_at'].to_time <= DateTime.now
+      end
+      
+      def active?
+        attributes['active']
+      end
 
       def slug
         [resource_slug, name].join('/')
