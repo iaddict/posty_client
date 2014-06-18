@@ -10,9 +10,10 @@ module PostyClient
         print_table(api_keys)
       end
 
-      desc "add", "add a api key"
-      def add
+      desc "add [EXPIRES_AT]", "add a api key"
+      def add(expires_at)
         api_key = PostyClient::Resources::ApiKey.new("")
+        api_key.attributes['expires_at'] = expires_at
         api_key.create
       end
 
