@@ -1,21 +1,25 @@
-#posty\_client
+# posty\_client
 
+posty\_client is a client library and command line tool for the post\_api server: [https://github.com/posty/posty_api](https://github.com/posty/posty_api)
 
-Client library for the post\_api server: [https://github.com/posty/posty_api](https://github.com/posty/posty_api)
+## Install
 
-##Install
+    $ gem install posty\_client
 
-gem install posty\_client
+## Usage
 
-##Usage
+You need to create at least a configuration file at `~/.posty-cli.yml`.
+It contains the details how to connect to your api server.
 
-Create at least a configuration file at ~/.posty-cli.yml
+The cli supplies a command to create a template for you:
 
-##Cli:
+    $ posty-client create_config
 
-	$ posty-client help
+### Cli usage
 
-Library:
+    $ posty-client help
+
+### Library usage examples
 
 
 	require 'pp'
@@ -63,7 +67,7 @@ Library:
 
 ## Information
 
-For more informations about posty please visit our website:
+For more information about posty please visit our website:
 [www.posty-soft.org](http://www.posty-soft.org)
 
 ## Support
