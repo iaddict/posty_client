@@ -4,7 +4,7 @@ posty\_client is a client library and command line tool for the post\_api server
 
 ## Install
 
-    $ gem install posty\_client
+    $ gem install posty_client
 
 ## Usage
 
