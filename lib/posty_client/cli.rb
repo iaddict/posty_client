@@ -67,9 +67,9 @@ module PostyClient
     D
     subcommand "transport", PostyClient::Command::TransportCommand
 
-    desc "api_key [SUBCOMMAND]", "perform an action on a api_key"
+    desc "api_key [SUBCOMMAND]", "perform an action on an api_key"
     long_desc <<-D 
-    Perform an action on a api_key. To see available subcommands use 'posty api_key help' 
+    Perform an action on an api_key. To see available subcommands use 'posty api_key help' 
     D
     subcommand "api_key", PostyClient::Command::ApiKeyCommand
   end
