@@ -7,9 +7,14 @@ module PostyClient
         print_table(domains)
       end
 
-      desc "add [DOMAIN]", "add a domain"
-      def add(name)
+      desc "add [DOMAIN] [QUOTA/MB]", "add a domain"
+      def add(name, quota)
         domain = PostyClient::Resources::Domain.new(name)
+        
+        if quota.present?
+          user.quota = quota
+        end
+        
         unless domain.save
           say domain.errors.inspect, :red
           exit 1

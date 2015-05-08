@@ -13,9 +13,13 @@ module PostyClient
         puts users.map(&:name)
       end
 
-      desc "add [USER]@[DOMAIN]", "add a user"
-      def add(name)
+      desc "add [USER]@[DOMAIN] [QUOTA/MB]", "add a user"
+      def add(name, quota)
         user = find_user_by_email(name)
+        
+        if quota.present?
+          user.quota = quota
+        end
 
         password = ask('Password?')
         unless password.blank?
