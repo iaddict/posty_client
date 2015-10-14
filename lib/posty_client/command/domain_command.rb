@@ -8,7 +8,7 @@ module PostyClient
       end
 
       desc "add [DOMAIN]", "add a domain"
-      def add(name, quota)
+      def add(name)
         domain = PostyClient::Resources::Domain.new(name)
                 
         unless domain.save
