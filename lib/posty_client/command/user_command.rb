@@ -18,7 +18,7 @@ module PostyClient
         user = find_user_by_email(name)
         
         if quota.present?
-          user.quota = quota
+          user.attributes['quota'] = quota
         end
 
         if password.blank?
