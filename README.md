@@ -65,19 +65,6 @@ The cli supplies a command to create a template for you:
 	puts '--'*10
 	pp u.aliases
 
-## Information
-
-For more information about posty please visit our website:
-[www.posty-soft.org](http://www.posty-soft.org)
-
-## Support
-
-* IRC
-	* Server: irc.freenode.net
-	* Channel: #posty
-* Email:
-	* support@posty-soft.org
-
 ## Bug reports
 
 If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as possible to help us fixing the possible bug. We also encourage you to help even more by forking and sending us a pull request.
