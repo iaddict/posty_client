@@ -65,6 +65,14 @@ The cli supplies a command to create a template for you:
 	puts '--'*10
 	pp u.aliases
 
+    # Usage with multiple servers
+    PostyClient::Settings.current_server = 'server1'
+    # Now all api calls execute on the settings defined for [production|development|test].servers.server1
+    d = PostyClient::Resources::Domain.new('posty-soft1.org')
+
+    # The `PostyClient::Settings.current_server` setting is thread local setting. The following is thus save to use:
+    %w(server1 server2).map {|server| PostyClient::Settings.current_server = server; # ...}.map(&:join)
+
 ## Bug reports
 
 If you discover any bugs, feel free to create an issue on GitHub. Please add as much information as possible to help us fixing the possible bug. We also encourage you to help even more by forking and sending us a pull request.

@@ -6,6 +6,31 @@ development:
   access_token: ask your admin
 
 production:
+  # default settings
   api_url: http://posty-api.herokuapp.com/api/
   api_version: v1
   access_token: ask your admin
+  # multi server settings
+  servers:
+    server1:
+      api_url: http://posty-api1.herokuapp.com/api/
+      api_version: v1
+      access_token: ask your admin
+    server2:
+      api_url: http://posty-api2.herokuapp.com/api/
+      api_version: v1
+      access_token: ask your admin
+
+test:
+  api_url: https://testmailer-default.herokuapp.com/api
+  api_version: v1
+  access_token: token12345
+  servers:
+    server1:
+      api_url: https://testmailer-server1.herokuapp.com/api
+      api_version: v1
+      access_token: token12345
+    server2:
+      api_url: https://testmailer-server2.herokuapp.com/api
+      api_version: v1
+      access_token: token12345

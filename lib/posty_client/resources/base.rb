@@ -11,8 +11,12 @@ module PostyClient
         [:id, :virtual_domain_id, :created_at, :updated_at, :password]
       end
 
-      cattr_accessor :base_uri do
+      def self.base_uri
         URI.join(Settings.api_url, Settings.api_version)
+      end
+
+      def base_uri
+        self.class.base_uri
       end
 
       class_attribute :primary_key
