@@ -25,7 +25,7 @@ module PostyClient
   end
 
   def self.env
-    'development' || ENV['POSTY_ENV']
+    ENV['POSTY_ENV'] || 'development'
   end
 
   def self.root
