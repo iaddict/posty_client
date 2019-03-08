@@ -1,3 +1,5 @@
+require "yaml"
+
 module PostyClient
   class Settings
     mattr_accessor :settings do

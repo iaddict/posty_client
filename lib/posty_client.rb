@@ -1,6 +1,5 @@
 require "logger"
 require "active_support/all"
-require "readwritesettings"
 require "rest_client"
 
 $: << File.expand_path(File.dirname(__FILE__)+'/../lib')

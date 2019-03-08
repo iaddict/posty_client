@@ -25,6 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "json"
   spec.add_runtime_dependency "rest-client"
-  spec.add_runtime_dependency "readwritesettings"
   spec.add_runtime_dependency "activesupport"
 end
