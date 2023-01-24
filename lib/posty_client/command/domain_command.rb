@@ -1,6 +1,32 @@
 module PostyClient
   module Command
     class DomainCommand < Thor
+      desc "show [DOMAIN]", "show given domain with users and aliases"
+      def show(domain_name)
+        domain = PostyClient::Resources::Domain.new(domain_name)
+        if domain.new_resource?
+          say "Unknown domain '#{domain.name}'", :red
+          exit 1
+        else
+          say("#{domain.name}:")
+          shell.indent do
+            say("users:")
+            shell.indent do
+              domain.users.each do
+                say "- #{_1.name}"
+              end
+            end
+
+            say("aliases:")
+            shell.indent do
+              domain.aliases.each do
+                say "- #{_1.name}"
+              end
+            end
+          end
+        end
+      end
+
       desc "list", "list all domains"
       def list
         domains = PostyClient::Resources::Domain.all.map {|d| [d.name]}
