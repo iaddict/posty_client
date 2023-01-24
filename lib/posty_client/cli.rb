@@ -9,6 +9,10 @@ require 'posty_client/command/api_key_command'
 
 module PostyClient
   class CLI < Thor
+    def self.exit_on_failure?
+      true
+    end
+
     map "-v" => "version"
     map "--version" => "version"
 
