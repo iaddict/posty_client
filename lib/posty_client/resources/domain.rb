@@ -18,17 +18,17 @@ module PostyClient
         end
       end
 
-      def initialize(name=nil)
+      def initialize(name=nil, params: {})
         @name = name
-        load if name
+        load(params: params) if name
       end
 
       def users
-        User.find_all_by_domain(self)
+        map_when_present(@attributes['mailboxes'], User) || User.find_all_by(self)
       end
 
       def aliases
-        DomainAlias.find_all_by_domain(self)
+        map_when_present(@attributes['domain_aliases'], DomainAlias) || DomainAlias.find_all_by(self)
       end
 
       def forwarders

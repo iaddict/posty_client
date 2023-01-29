@@ -1,8 +1,9 @@
 module PostyClient
   module Resources
     module FinderConcern
-      def find_all_by_domain(domain)
-        response = RestClient.get([domain.slug, resource_name].join('/'))
+      # @param [PostyClient::Resource::Base] resource
+      def find_all_by(resource)
+        response = RestClient.get([resource.slug, resource_name].join('/'))
 
         if response.code == 404
           logger.debug("#{self.class.name} :: load non existing object (#{response.code}) '#{response}'")
@@ -15,34 +16,13 @@ module PostyClient
         data = JSON.parse(response)
 
         data.collect do |datum|
-          model = self.new(domain)
-          model.attributes = datum.flatten.last
+          model = self.new(resource)
+          # a Hash is returned with regular Grape collection responses, the former is the old format
+          model.attributes = datum.count == 1 ? datum.flatten.last : datum
           model.new_resource = false
 
           model
         end
-      end
-      
-      def find_all_by_user(user)
-        response = RestClient.get([user.slug, resource_name].join('/'))
-
-        if response.code == 404
-          logger.debug("#{self.class.name} :: load non existing object (#{response.code}) '#{response}'")
-          return []
-        elsif response.code != 200
-          logger.error("#{self.class.name} :: load failed with (#{response.code}) '#{response}'")
-          return nil
-        end
-
-        data = JSON.parse(response)
-
-        data.collect do |datum|
-          model = self.new(user)
-          model.attributes = datum.flatten.last
-          model.new_resource = false
-
-          model
-        end        
       end
     end
   end

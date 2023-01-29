@@ -2,7 +2,10 @@ require 'uri'
 
 module PostyClient
   module Resources
+    # @abstract
     class Base
+      include ActiveSupport::Benchmarkable
+
       cattr_accessor :logger do
         PostyClient.logger
       end
@@ -38,12 +41,12 @@ module PostyClient
         @attributes
       end
 
-      def load
+      def load(params: {})
         @new_resource = true
         @attributes = {}
 
         response = begin
-          RestClient.get(slug)
+          RestClient.get(slug, params: params)
         rescue RestClient::Exception => e
           e.response
         end
@@ -78,7 +81,7 @@ module PostyClient
           end
         end
 
-        return false
+        false
       end
 
       def update
@@ -125,7 +128,7 @@ module PostyClient
       end
 
       def self.resource_name
-        self.name.demodulize.tableize
+        self.name&.demodulize&.tableize
       end
 
       def resource_name

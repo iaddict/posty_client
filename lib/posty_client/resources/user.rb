@@ -14,7 +14,7 @@ module PostyClient
       end
       
       def aliases
-        UserAlias.find_all_by_user(self)
+        map_when_present(@attributes['mailbox_aliases'], UserAlias) || UserAlias.find_all_by(self)
       end
 
       def slug
