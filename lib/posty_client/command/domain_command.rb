@@ -1,42 +1,35 @@
+require_relative 'server_option_concern'
+
 module PostyClient
   module Command
     class DomainCommand < Thor
+      include ServerOptionConcern
+
       desc "show [DOMAIN]", "show given domain with users and aliases"
+      option :complete, desc: "Load all associated entities (aliases, mailboxes, forwarders)"
+
       def show(domain_name)
-        domain = PostyClient::Resources::Domain.new(domain_name)
+        domain =
+          PostyClient::Resources::Domain.new(domain_name, params: { complete: options[:complete] })
+
         if domain.new_resource?
           say "Unknown domain '#{domain.name}'", :red
           exit 1
         else
-          say("#{domain.name}:")
-          shell.indent do
-            say("users:")
-            shell.indent do
-              domain.users.each do
-                say "- #{_1.name}"
-              end
-            end
-
-            say("aliases:")
-            shell.indent do
-              domain.aliases.each do
-                say "- #{_1.name}"
-              end
-            end
-          end
+          puts domain.attributes.to_yaml
         end
       end
 
       desc "list", "list all domains"
       def list
-        domains = PostyClient::Resources::Domain.all.map {|d| [d.name]}
+        domains = PostyClient::Resources::Domain.all.map { |d| [d.name] }
         print_table(domains)
       end
 
       desc "add [DOMAIN]", "add a domain"
       def add(name)
         domain = PostyClient::Resources::Domain.new(name)
-                
+
         unless domain.save
           say domain.errors.inspect, :red
           exit 1
