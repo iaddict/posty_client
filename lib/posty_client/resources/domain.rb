@@ -30,7 +30,11 @@ module PostyClient
       def aliases
         DomainAlias.find_all_by_domain(self)
       end
-      
+
+      def forwarders
+        map_when_present(@attributes['forwarders'], DomainForwarder) || DomainForwarder.find_all_by(self)
+      end
+
       def slug
         [resource_slug, name].join('/')
       end

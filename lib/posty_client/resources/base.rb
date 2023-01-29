@@ -139,6 +139,16 @@ module PostyClient
       def slug
         raise NotImplementedError
       end
+
+      private
+
+      # @param [Array<Hash>] array_of_attributes
+      # @param [Class<Base>] resource_class
+      # @return [Array<Base>, nil]
+      def map_when_present(array_of_attributes, resource_class)
+        return nil if array_of_attributes.nil?
+        array_of_attributes.map { |mb| resource_class.new(self).tap { _1.attributes = mb } }
+      end
     end
   end
 end
