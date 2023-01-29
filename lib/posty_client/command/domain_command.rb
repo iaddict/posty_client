@@ -17,6 +17,10 @@ module PostyClient
           exit 1
         else
           puts domain.attributes.to_yaml
+          pp domain.aliases
+          pp domain.forwarders
+          pp domain.users
+          pp domain.users.map(&:aliases)
         end
       end
 
