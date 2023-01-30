@@ -5,6 +5,7 @@ module PostyClient
     class UserCommand < Thor
       include PostyClient::Resources
       include PostyClient::Command::FinderConcerns
+      include ServerOptionConcern
 
       desc "list [DOMAIN]", "list all users of given domain"
       def list(domain)

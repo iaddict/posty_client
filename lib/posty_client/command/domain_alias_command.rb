@@ -5,6 +5,7 @@ module PostyClient
     class DomainAliasCommand < Thor
       include PostyClient::Resources
       include PostyClient::Command::FinderConcerns
+      include ServerOptionConcern
 
       desc "list [DOMAIN]", "list all domain aliases of given domain"
       def list(domain)

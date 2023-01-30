@@ -1,6 +1,8 @@
 module PostyClient
   module Command
     class TransportCommand < Thor
+      include ServerOptionConcern
+
       desc "list", "list all transports"
       def list
         transports = PostyClient::Resources::Transport.all.map {|d| [d.name]}

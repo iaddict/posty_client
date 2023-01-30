@@ -5,6 +5,7 @@ module PostyClient
     class UserAliasCommand < Thor
       include PostyClient::Resources
       include PostyClient::Command::FinderConcerns
+      include ServerOptionConcern
 
       desc "list [USER]@[DOMAIN]", "list all user aliases of given user"
       def list(name)

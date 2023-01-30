@@ -2,7 +2,8 @@ module PostyClient
   module Command
     class ApiKeyCommand < Thor
       include PostyClient::Resources
-      
+      include ServerOptionConcern
+
       desc "list", "list all api keys"
       def list
         api_keys = PostyClient::Resources::ApiKey.all.map {|d| [d.attributes["access_token"], set_color(d.attributes["expires_at"], d.expired? ? :red : :green), set_color(d.attributes["active"], d.active? ? :green : :red)]}
