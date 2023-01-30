@@ -60,7 +60,9 @@ module PostyClient
         end
 
         @new_resource = false
-        self.attributes = JSON.parse(response).flatten.last
+        datum = JSON.parse(response)
+        # datum is either {model_name: {...attributes}} or {...attributes}
+        self.attributes = datum.count == 1 ? datum.flatten.last : datum
 
         @name = attributes[primary_key]
 

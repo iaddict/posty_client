@@ -18,6 +18,7 @@ module PostyClient
         data.collect do |datum|
           model = self.new(resource)
           # a Hash is returned with regular Grape collection responses, the former is the old format
+          # datum is either {model_name: {...attributes}} or {...attributes}
           model.attributes = datum.count == 1 ? datum.flatten.last : datum
           model.new_resource = false
 
