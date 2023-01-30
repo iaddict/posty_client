@@ -26,14 +26,17 @@ module PostyClient
         load(params: params) if name
       end
 
+      # @return [Array<User>]
       def users
         map_when_present(@attributes['mailboxes'], User) || User.find_all_by(self)
       end
 
+      # @return [Array<DomainAlias>]
       def aliases
         map_when_present(@attributes['domain_aliases'], DomainAlias) || DomainAlias.find_all_by(self)
       end
 
+      # @return [Array<DomainForwarder>]
       def forwarders
         map_when_present(@attributes['forwarders'], DomainForwarder) || DomainForwarder.find_all_by(self)
       end

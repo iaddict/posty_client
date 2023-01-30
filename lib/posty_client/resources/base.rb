@@ -137,10 +137,12 @@ module PostyClient
         self.class.resource_name
       end
 
+      # @return [String] the url of the resource namespace, eg. /domains/abc.de/forwarders
       def resource_slug
         raise NotImplementedError        
       end
 
+      # @return [String] the url of the concrete resource, eg. /domains/abc.de/forwarders/fw1
       def slug
         raise NotImplementedError
       end
