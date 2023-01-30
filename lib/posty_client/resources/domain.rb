@@ -18,6 +18,9 @@ module PostyClient
         end
       end
 
+      # @param [nil,String] name
+      # @param [Hash] params
+      # @option params [Boolean] :complete to fetch the domain with all associations
       def initialize(name=nil, params: {})
         @name = name
         load(params: params) if name
