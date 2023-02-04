@@ -18,3 +18,4 @@ tmp
 .gitconfig
 .ruby-gemset
 .ruby-version
+/.idea/

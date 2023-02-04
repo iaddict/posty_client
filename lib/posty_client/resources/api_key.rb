@@ -7,11 +7,11 @@ module PostyClient
       self.primary_key = 'access_token'
 
       def self.all
-        response = RestClient.get([base_uri, resource_name].join('/'))
+        response = rest_client.get([base_uri, resource_name].join('/'))
 
-        return nil unless response.code == 200
+        return nil unless response.status == 200
 
-        data = JSON.parse(response)
+        data = response.body
 
         data.collect do |datum|
           model = self.new

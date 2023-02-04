@@ -2,9 +2,8 @@ module PostyClient
   module Resources
     class Summary < Base
       def self.get
-        response = RestClient.get([base_uri, resource_name].join('/'))
-
-        data = JSON.parse(response)
+        response = rest_client.get([base_uri, resource_name].join('/'))
+        response.body
       end
       
       def self.resource_name

@@ -3,17 +3,17 @@ module PostyClient
     module FinderConcern
       # @param [PostyClient::Resource::Base] resource
       def find_all_by(resource)
-        response = RestClient.get([resource.slug, resource_name].join('/'))
+        response = rest_client.get([resource.slug, resource_name].join('/'))
 
-        if response.code == 404
-          logger.debug("#{self.class.name} :: load non existing object (#{response.code}) '#{response}'")
+        if response.status == 404
+          logger.debug("#{self.class.name} :: load non existing object (#{response.status}) '#{response}'")
           return []
-        elsif response.code != 200
-          logger.error("#{self.class.name} :: load failed with (#{response.code}) '#{response}'")
+        elsif response.status != 200
+          logger.error("#{self.class.name} :: load failed with (#{response.status}) '#{response}'")
           return nil
         end
 
-        data = JSON.parse(response)
+        data = response.body
 
         data.collect do |datum|
           model = self.new(resource)

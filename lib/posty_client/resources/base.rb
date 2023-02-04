@@ -45,22 +45,18 @@ module PostyClient
         @new_resource = true
         @attributes = {}
 
-        response = begin
-          RestClient.get(slug, params: params)
-        rescue RestClient::Exception => e
-          e.response
-        end
+        response = rest_client.get(slug, params)
 
-        if response.code == 404
-          logger.debug("#{self.class.name} :: load non existing object (#{response.code}) '#{response}'")
+        if response.status == 404
+          logger.debug("#{self.class.name} :: load non existing object (#{response.status}) '#{response.inspect}'")
           return
-        elsif response.code != 200
-          logger.error("#{self.class.name} :: load failed with (#{response.code}) '#{response}'")
+        elsif response.status != 200
+          logger.error("#{self.class.name} :: load failed with (#{response.status}) '#{response}'")
           return
         end
 
         @new_resource = false
-        datum = JSON.parse(response)
+        datum = response.body
         # datum is either {model_name: {...attributes}} or {...attributes}
         self.attributes = datum.count == 1 ? datum.flatten.last : datum
 
@@ -89,40 +85,38 @@ module PostyClient
       def update
         logger.debug("update #{self.class.name} : #{name}")
         request_with_error_handling do
-          RestClient.put(slug, attributes)
+          rest_client.put(slug, attributes)
         end
       end
 
       def create
         logger.debug("create #{self.class.name} : #{name}")
         request_with_error_handling do
-          RestClient.post(resource_slug, attributes, :content_type => :json, :accept => :json)
+          rest_client.post(resource_slug, attributes)
         end
       end
 
       def delete
         logger.debug("delete #{self.class.name} : #{name}")
         request_with_error_handling do
-          RestClient.delete(slug)
+          rest_client.delete(slug)
         end
       end
 
       def request_with_error_handling(&block)
         response = begin
           block.call
-        rescue RestClient::Exception => e
-          e.response
         end
 
-        case response.code
+        case response.status
         when 200..299
           true
         else
           @errors = begin
-            JSON.parse(response)['error']
+            response.body['error']
           rescue => e
             logger.error(e)
-            {'base' => "Unrecoverable error: #{response.code} (#{response})"}
+            {'base' => "Unrecoverable error: #{response.status} (#{response})"}
           end
 
           false
@@ -156,6 +150,19 @@ module PostyClient
         return nil if array_of_attributes.nil?
         array_of_attributes.map { |mb| resource_class.new(self).tap { _1.attributes = mb } }
       end
+
+      # @return [Faraday::Connection]
+      def self.rest_client
+        Faraday.new(
+          url: base_uri,
+          headers: {'Auth-Token' => PostyClient::Settings.access_token}
+        ) do |f|
+          f.request :json # encode req bodies as JSON and automatically set the Content-Type header
+          f.response :json # decode response bodies as JSON
+        end
+      end
+
+      delegate :rest_client, to: self
     end
   end
 end

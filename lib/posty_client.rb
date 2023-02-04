@@ -1,6 +1,6 @@
 require "logger"
 require "active_support/all"
-require "rest_client"
+require "faraday"
 
 $: << File.expand_path(File.dirname(__FILE__)+'/../lib')
 
@@ -34,11 +34,6 @@ module PostyClient
   mattr_accessor :logger
   self.logger = Logger.new(STDOUT)
 end
-
-RestClient.add_before_execution_proc do |req, params|
-  req['auth_token'] = PostyClient::Settings.access_token
-end
-
 
 require "posty_client/settings"
 
