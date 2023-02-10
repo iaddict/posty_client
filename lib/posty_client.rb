@@ -31,8 +31,16 @@ module PostyClient
     File.expand_path(File.dirname(__FILE__)+'/../')
   end
 
-  mattr_accessor :logger
-  self.logger = Logger.new(STDOUT)
+  # @return [Logger]
+  mattr_accessor :logger do
+    Logger.new(STDOUT).tap do |logger|
+      logger.level = if ENV['DEBUG']
+                       Logger::DEBUG
+                     else
+                       Logger::INFO
+                     end
+    end
+  end
 end
 
 require "posty_client/settings"

@@ -157,8 +157,12 @@ module PostyClient
           url: base_uri,
           headers: {'Auth-Token' => PostyClient::Settings.access_token}
         ) do |f|
+          debug_level = PostyClient.logger.debug?
           f.request :json # encode req bodies as JSON and automatically set the Content-Type header
           f.response :json # decode response bodies as JSON
+          f.response :logger, PostyClient.logger, { headers: debug_level, bodies: debug_level, errors: true } do |logger|
+            logger.filter(/(Auth-Token: ")(\w)([^"]+)/, '\1\2[REDACTED]')
+          end
         end
       end
 
