@@ -6,7 +6,7 @@ require 'posty_client/command/user_alias_command'
 require 'posty_client/command/transport_command'
 require 'posty_client/command/forwarder_command'
 require 'posty_client/command/api_key_command'
-
+require 'posty_client/command/dkim_record_command'
 
 module PostyClient
   class CLI < Thor
@@ -83,6 +83,12 @@ module PostyClient
     Perform an action on an api_key. To see available subcommands use 'posty api_key help' 
     D
     subcommand "api_key", PostyClient::Command::ApiKeyCommand
+
+    desc "dkim_record [SUBCOMMAND]", "perform an action on an dkim_key"
+    long_desc <<-D
+    Perform an action on DKIM DNS TXT records. To see available subcommands use 'posty dkim_record help'
+    D
+    subcommand "dkim_record", PostyClient::Command::DkimRecordCommand
   end
 end
 
